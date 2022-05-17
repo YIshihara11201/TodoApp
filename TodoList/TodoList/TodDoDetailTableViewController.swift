@@ -58,7 +58,6 @@ class TodDoDetailTableViewController: UITableViewController {
             toDo?.notes = notes
         } else {
             toDo = ToDo(title: title, isComplete: isComplete, dueDate: dueDate, notes: notes)
-            
         }
     }
     

@@ -17,14 +17,14 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ToDoCellIdentifier" id="0Yq-AM-uzR" customClass="ToDoCell" customModule="TodoList" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="36.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0Yq-AM-uzR" id="oFj-Ty-huq">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="36.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ge1-Ut-fVT">
-                                            <rect key="frame" x="16" y="8.3333333333333339" width="28" height="27.333333333333329"/>
+                                            <rect key="frame" x="16" y="4.6666666666666661" width="28" height="27.333333333333336"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" image="checkmark.circle" catalog="system">
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24"/>
@@ -33,24 +33,30 @@
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24"/>
                                             </state>
                                             <connections>
-                                                <action selector="isCompleteButtonTapped:" destination="EMs-8r-pXt" eventType="touchUpInside" id="6dS-1y-5N0"/>
+                                                <action selector="checkmarkTapped:" destination="0Yq-AM-uzR" eventType="touchUpInside" id="w8d-Ag-tza"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3X1-tR-QA4">
-                                            <rect key="frame" x="64" y="0.0" width="306" height="44"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3X1-tR-QA4">
+                                            <rect key="frame" x="60" y="8.0000000000000018" width="314" height="20.666666666666671"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="3X1-tR-QA4" firstAttribute="top" secondItem="oFj-Ty-huq" secondAttribute="top" constant="8" id="2NS-xf-hv2"/>
+                                        <constraint firstAttribute="trailing" secondItem="3X1-tR-QA4" secondAttribute="trailing" constant="16" id="PUr-az-tbc"/>
+                                        <constraint firstAttribute="bottom" secondItem="3X1-tR-QA4" secondAttribute="bottom" constant="8" id="Q3R-Xe-zPB"/>
                                         <constraint firstItem="ge1-Ut-fVT" firstAttribute="centerY" secondItem="oFj-Ty-huq" secondAttribute="centerY" id="h9w-q6-3O5"/>
+                                        <constraint firstItem="3X1-tR-QA4" firstAttribute="leading" secondItem="ge1-Ut-fVT" secondAttribute="trailing" constant="16" id="mQT-JH-Dsp"/>
+                                        <constraint firstItem="3X1-tR-QA4" firstAttribute="centerY" secondItem="oFj-Ty-huq" secondAttribute="centerY" id="u6b-Qo-myy"/>
                                         <constraint firstItem="ge1-Ut-fVT" firstAttribute="leading" secondItem="oFj-Ty-huq" secondAttribute="leading" constant="16" id="uSt-Jn-WFZ"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="977-1V-zLs" kind="presentation" destinationCreationSelector="editToDo:sender:" id="W0X-Vw-ISi"/>
+                                    <outlet property="isCompleteButton" destination="ge1-Ut-fVT" id="As5-ld-1rX"/>
+                                    <outlet property="titleLabel" destination="3X1-tR-QA4" id="SSi-xj-SDz"/>
+                                    <segue destination="977-1V-zLs" kind="presentation" id="9Sc-dv-y0F"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -245,7 +251,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="EMs-8r-pXt" kind="relationship" relationship="rootViewController" id="o3I-Oz-oQG"/>
+                        <segue destination="EMs-8r-pXt" kind="relationship" relationship="rootViewController" destinationCreationSelector="editToDo:sender:" id="o3I-Oz-oQG"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YYd-CL-NOX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -284,7 +290,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="W0X-Vw-ISi"/>
+        <segue reference="9Sc-dv-y0F"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="checkmark.circle" catalog="system" width="128" height="121"/>

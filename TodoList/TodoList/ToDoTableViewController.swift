@@ -30,9 +30,10 @@ class ToDoTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoCellIdentifier", for: indexPath) as! ToDoCell
         
         let toDo = toDos[indexPath.row]
-        var content = cell.defaultContentConfiguration()
-        content.text = toDo.title
-        cell.contentConfiguration = content
+        cell.titleLabel?.text = toDo.title
+        cell.isCompleteButton.isSelected = toDo.isComplete
+        
+        cell.delegate = self
         
         return cell
     }
@@ -45,6 +46,7 @@ class ToDoTableViewController: UITableViewController {
         if editingStyle == .delete {
             toDos.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            ToDo.saveToDos(toDos)
         }
     }
     
@@ -63,19 +65,31 @@ class ToDoTableViewController: UITableViewController {
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
         }
+        ToDo.saveToDos(toDos)
     }
     
     @IBSegueAction func editToDo(_ coder: NSCoder, sender: Any?) -> TodDoDetailTableViewController? {
         let detailController = TodDoDetailTableViewController(coder: coder)
         
         guard let cell = sender as? UITableViewCell,
-              let indexPath = tableView.indexPath(for: cell) else {
-            return detailController
-        }
+              let indexPath = tableView.indexPath(for: cell) else { return detailController }
         
         tableView.deselectRow(at: indexPath, animated: true)
         detailController?.toDo = toDos[indexPath.row]
         
         return detailController
+    }
+}
+
+
+extension ToDoTableViewController: ToDoCellDelegate {
+    func checkmarkTapped(sender: ToDoCell) {
+        if let indexPath = tableView.indexPath(for: sender) {
+            var toDo = toDos[indexPath.row]
+            toDo.isComplete.toggle()
+            toDos[indexPath.row] = toDo
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+            ToDo.saveToDos(toDos)
+        }
     }
 }
